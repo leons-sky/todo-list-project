@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
@@ -13,6 +13,8 @@ import Lists from "./pages/Lists";
 import request from "./request";
 
 const Routes = (props) => {
+	const currentUser = useContext(UserContext);
+
 	return (
 		<Route path="/" element={<Root />} errorElement={<ErrorHandling />}>
 			<Route
@@ -27,8 +29,6 @@ const Routes = (props) => {
 
 						return redirect("/lists");
 					}
-					// const response = await request("http://localhost:4000/");
-					// console.log(response);
 				}}
 			/>
 			<Route path="login" element={<Login />} />
@@ -36,6 +36,10 @@ const Routes = (props) => {
 				path="lists"
 				element={<Lists />}
 				loader={async () => {
+					// if (!currentUser) {
+					// 	return redirect("/login");
+					// }
+
 					const res = await request("/lists");
 
 					if (res.ok) {

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../db";
+import db from "../db.js";
 
 export default db.define(
 	"user",

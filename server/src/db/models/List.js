@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import User from "./User";
-import db from "../db";
+import User from "./User.js";
+import db from "../db.js";
 
 export default db.define(
 	"list",

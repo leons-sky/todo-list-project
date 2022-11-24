@@ -1,7 +1,7 @@
-import "./env";
+import "./env.js";
 
-import db from "./db/db";
-import app from "./api/app";
+import db from "./db/db.js";
+import app from "./api/app.js";
 
 async function sync(force) {
 	force = Boolean(force);

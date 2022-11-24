@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "../components/RegisterForm";
 
 const Main = styled.main`
 	width: 100%;
@@ -23,6 +23,7 @@ const Spacer = styled.div`
 
 const H2 = styled.h2`
 	margin: 3rem;
+	color: var(--accent-red);
 `;
 
 const Index = () => {
@@ -30,7 +31,7 @@ const Index = () => {
 		<Main>
 			<Section>
 				<Spacer />
-				<H2>Login</H2>
+				<H2>Register</H2>
 				<RegisterForm />
 				<p>
 					Already have an account? <Link to="/login">Login</Link>

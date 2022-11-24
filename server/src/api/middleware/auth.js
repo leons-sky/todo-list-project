@@ -1,7 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
-import { Author } from "../../db/models";
-
-const COOKIE = "test_accesstoken";
+import { User } from "../../db/models";
+import { COOKIE } from "../constants.js";
 
 export default function auth(req, res, next) {
 	const token = req.cookies[COOKIE];
@@ -15,7 +14,7 @@ export default function auth(req, res, next) {
 				return res.status(403).send(error);
 			}
 
-			const user = await Author.findOne({
+			const user = await User.findOne({
 				where: {
 					username: payload.username,
 					password: payload.password,

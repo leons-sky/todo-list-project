@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { User } from "../db/models";
 import jsonwebtoken from "jsonwebtoken";
+import { COOKIE } from "./constants.js";
+import { itemsRouter, listsRouter, usersRouter } from "./routes";
 
 const app = express();
 
@@ -15,44 +17,8 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-// getting cookies
-app.get("/", async (req, res) => {
-	// console.log(req.cookies);
-	res.sendStatus(200);
-});
-
-// creating account
-app.post("/", async (req, res) => {
-	const data = {
-		username: req.body.username,
-		password: req.body.password,
-	};
-
-	const user = await User.findOne({
-		where: data,
-	});
-	if (user) {
-		return res.status(400).send("Already created");
-	}
-
-	const createdUser = await User.create(data);
-
-	const token = jsonwebtoken.sign(
-		{
-			userId: createdUser.getDataValue("id"),
-			username: req.body.username,
-			password: req.body.password,
-		},
-		process.env.TOKEN_SECRET
-	);
-
-	await createdUser.update({
-		token: token,
-	});
-
-	res.cookie("test_accesstoken", token, {
-		httpOnly: true,
-	}).send(await User.findByPk(createdUser.getDataValue("id")));
-});
+app.use("/items", itemsRouter);
+app.use("/lists", listsRouter);
+app.use("/users", usersRouter);
 
 export default app;

@@ -5,11 +5,35 @@
 }
 
 :root {
-	--black: #1e2123;
+	--background-black: #1e2123;
+	--background-gray: #292b2f;
+	--background-light-gray: #363a44;
+	--accent-cyan: #c7f1ef;
+	--accent-aqua: #54e1b6;
+	--accent-red: #d6335c;
+	--text-strong: #dbdbe6;
+	--text-faint: #acadb6;
 }
 
 #root {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
+	background-color: var(--background-black);
+	color: var(--text-strong);
+}
+
+input {
+	background: var(--background-gray);
+	color: var(--text-strong);
+}
+
+button {
+	background: var(--background-light-gray);
+	color: var(--text-strong);
+	border: 0;
+	border-radius: 4px;
+	padding: 0.4rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
