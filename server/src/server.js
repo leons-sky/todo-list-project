@@ -19,8 +19,11 @@ db.authenticate()
 	.then(async () => {
 		console.log("Connected to database.");
 
-		await sync(true);
+		// Sync database
+		// await sync(true) // wipe the database
+		await sync();
 
+		// Listen port
 		app.listen(process.env.PORT, () => {
 			console.log(`Successfully listening on port ${process.env.PORT}`);
 		});

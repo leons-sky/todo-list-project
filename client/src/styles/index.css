@@ -4,6 +4,10 @@
 	font-family: "Poppins", sans-serif;
 }
 
+:root {
+	--black: #1e2123;
+}
+
 #root {
 	display: flex;
 	flex-direction: column;

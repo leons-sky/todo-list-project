@@ -1,6 +1,7 @@
-import Home from "./Home";
+import Index from "./Index/index";
 import Signup from "./Signup";
 import Root from "./Root";
-import Error from "./Error";
+import ErrorHandling from "./ErrorHandling";
+import Login from "./Login";
 
-export { Home, Signup, Root, Error };
+export { Index, Signup, Root, ErrorHandling, Login };

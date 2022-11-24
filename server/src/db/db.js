@@ -6,6 +6,6 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export default new Sequelize({
 	dialect: "sqlite",
-	storage: path.join(__dirname, "test.sqlite"),
+	storage: path.join(__dirname, "todo.sqlite"),
 	logging: false,
 });
