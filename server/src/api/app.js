@@ -15,11 +15,13 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
+// getting cookies
 app.get("/", async (req, res) => {
-	console.log(req.cookies);
+	// console.log(req.cookies);
 	res.sendStatus(200);
 });
 
+// creating account
 app.post("/", async (req, res) => {
 	const data = {
 		username: req.body.username,

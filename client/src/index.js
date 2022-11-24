@@ -8,8 +8,9 @@ import {
 } from "react-router-dom";
 import { Home, Signup, Error, Root } from "./pages";
 
-import "./reset.css";
-import "./index.css";
+import "./styles/reset.css";
+import "./styles/index.css";
+import request from "./request";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -18,14 +19,7 @@ const router = createBrowserRouter(
 				index
 				element={<Home />}
 				loader={async () => {
-					const response = await fetch("http://localhost:4000/", {
-						method: "GET",
-						credentials: "include",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-					});
+					const response = await request("http://localhost:4000/");
 
 					console.log(response);
 				}}
@@ -34,24 +28,18 @@ const router = createBrowserRouter(
 				path="signup"
 				element={<Signup />}
 				loader={async () => {
-					const response = await fetch("http://localhost:4000/", {
-						method: "POST",
-						credentials: "include",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							username: "leonsemmens",
-							password: "test123",
-						}),
-					});
-
-					console.log(response);
-					if (response.ok) {
-						const user = await response.json();
-						console.log(user);
-					}
+					// const response = await request("http://localhost:4000/", {
+					// 	method: "POST",
+					// 	body: JSON.stringify({
+					// 		username: "leonsemmens",
+					// 		password: "test123",
+					// 	}),
+					// });
+					// console.log(response);
+					// if (response.ok) {
+					// 	const user = await response.json();
+					// 	console.log(user);
+					// }
 				}}
 			/>
 		</Route>
