@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
+// General
+const FormStyled = styled.form`
+	display: flex;
+	flex-direction: column;
+`;
+
 // ItemForm
 const FormSectionStyled = styled.section`
 	display: ${(props) => (props.show ? "unset" : "none")};
 	visibility: ${(props) => (props.show ? "visible" : "hidden")};
-`;
-
-const FormStyled = styled.form`
-	display: flex;
-	flex-direction: column;
 `;
 
 // ListContainer
