@@ -1,22 +1,24 @@
 import React from "react";
-import styled from "styled-components";
-
-const ItemTimestamp = styled.time``;
-const ItemTitle = styled.h3``;
-const ItemDescription = styled.p``;
+import {
+	ItemTimestampStyled,
+	ItemTitleStyled,
+	ItemDescriptionStyled,
+} from "../styles/styled-components.jsx";
 
 const ListItem = (props) => {
 	return (
 		<section>
 			<div>
-				<ItemTimestamp>{props.itemCreatedAt}</ItemTimestamp>
+				<ItemTimestampStyled>{props.itemCreatedAt}</ItemTimestampStyled>
 				{
-				// DeleteButton
+					// DeleteButton
 				}
 			</div>
 
-			<ItemTitle>{props.itemTitle}</ItemTitle>
-			<ItemDescription>{props.itemDescription}</ItemDescription>
+			<ItemTitleStyled>{props.itemTitle}</ItemTitleStyled>
+			<ItemDescriptionStyled>
+				{props.itemDescription}
+			</ItemDescriptionStyled>
 		</section>
 	);
 };
