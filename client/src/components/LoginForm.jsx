@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import request from "../request.js";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-`;
-
-const Label = styled.label`
-	display: block;
-`;
+import { FormStyled } from "../styles/styled-components.jsx";
 
 const Input = styled.input`
 	background-color: white;
@@ -31,7 +23,7 @@ const LoginButton = styled.button`
 
 const LoginInput = (props) => {
 	return (
-		<Label htmlFor={props.id}>
+		<label htmlFor={props.id}>
 			{props.title}
 			<br />
 			<Input
@@ -41,7 +33,7 @@ const LoginInput = (props) => {
 				required
 				valid={!props.errorData}
 			/>
-		</Label>
+		</label>
 	);
 };
 
@@ -52,7 +44,7 @@ const LoginForm = () => {
 	const navigate = useNavigate();
 
 	return (
-		<Form
+		<FormStyled
 			onSubmit={async (event) => {
 				event.preventDefault();
 
@@ -67,7 +59,7 @@ const LoginForm = () => {
 				if (response.ok) {
 					navigate("/lists");
 				} else {
-					if (response.status == 403) {
+					if (response.status === 403) {
 						setError("Invalid username or password");
 					}
 				}
@@ -82,7 +74,7 @@ const LoginForm = () => {
 			/>
 			<LoginError>{error ? error.msg : ""}</LoginError>
 			<LoginButton type="submit">Login</LoginButton>
-		</Form>
+		</FormStyled>
 	);
 };
 

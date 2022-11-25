@@ -19,10 +19,5 @@ export default db.define(
 	},
 	{
 		timestamps: false,
-		defaultScope: {
-			attributes: {
-				exclude: [],
-			},
-		},
 	}
 );

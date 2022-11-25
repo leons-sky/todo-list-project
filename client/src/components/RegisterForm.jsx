@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import request from "../request.js";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-`;
+import { FormStyled } from "../styles/styled-components";
 
 const Label = styled.label`
 	display: block;
@@ -58,7 +54,7 @@ const RegisterForm = () => {
 	const navigate = useNavigate();
 
 	return (
-		<Form
+		<FormStyled
 			onSubmit={async (event) => {
 				event.preventDefault();
 
@@ -85,19 +81,22 @@ const RegisterForm = () => {
 				if (response.ok) {
 					navigate("/lists");
 				} else {
-					if (response.status == 409) {
-						const err = await response.text();
-						switch (err) {
-							case "Username taken":
-								setErrors((value) => {
-									value.username = {
-										msg: "Username is taken",
-									};
-									return value;
-								});
-								break;
-							default:
-						}
+					console.log(response);
+					if (response.status === 409) {
+						setErrors((value) => {
+							value.username = {
+								msg: "Username is taken",
+							};
+							return value;
+						});
+					} else {
+						setErrors((value) => {
+							value.username = {
+								msg: "An error occured",
+							};
+							return value;
+						});
+						// console.log(await response.json());
 					}
 				}
 			}}
@@ -123,7 +122,7 @@ const RegisterForm = () => {
 				errorData={errors.confirmPassword}
 			/>
 			<RegisterButton type="submit">Register</RegisterButton>
-		</Form>
+		</FormStyled>
 	);
 };
 

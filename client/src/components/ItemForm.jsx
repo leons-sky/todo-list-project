@@ -1,29 +1,74 @@
-import React from "react";
-import { FormSectionStyled, FormStyled } from "../styles/styled-components.jsx";
+import React, { useState } from "react";
+import styled from "styled-components";
+import {
+	ItemFormContainerStyled,
+	ItemFormStyled,
+	ItemFormTitleStyled,
+	ItemFormInputStyled,
+	ItemFormDescriptionStyled,
+	ItemFormButtonStyled,
+	ItemButtonsStyled,
+} from "../styles/styled-components.jsx";
+import request from "../request.js";
+import { GiScorpion } from "react-icons/gi";
 
 const ItemForm = (props) => {
+	const [title, setTitle] = useState();
+	const [description, setDescription] = useState();
+
 	return (
-		<FormSectionStyled show={props.show}>
-			<h3>Create New Item</h3>
-			<FormStyled
-				action="" /* send to endpoint to create item in db*/
-				method="post"
-				onSubmit={(event) => {
+		<ItemFormContainerStyled show={props.show}>
+			<ItemFormTitleStyled>Create New Item</ItemFormTitleStyled>
+			<ItemFormStyled
+				onSubmit={async (event) => {
 					event.preventDefault();
+					const res = await request(`/lists/${props.listId}`, {
+						method: "POST",
+						body: {
+							title: title,
+							description: description,
+						},
+					});
+					if (res.ok) {
+						const newItem = await res.json();
+						props.setItems((items) => {
+							return [...items, newItem];
+						});
+					} else {
+						console.log(res);
+					}
 				}}
 			>
 				<label htmlFor="itemTitle">Title:</label>
-				<input type="text" name="itemTitle" id="itemTitle" required />
-				<label htmlFor="itemDescription">Description:</label>
-				<input
+				<ItemFormInputStyled
 					type="text"
-					name="itemDescription"
-					id="itemDescription"
+					name="itemTitle"
+					required
+					onChange={(event) => setTitle(event.target.value)}
 				/>
-				<input type="submit" value="Submit" />
-				<input type="reset" value="Clear" />
-			</FormStyled>
-		</FormSectionStyled>
+				<label htmlFor="itemDescription">Description:</label>
+				<ItemFormDescriptionStyled
+					name="itemDescription"
+					onChange={(event) => setDescription(event.target.value)}
+				/>
+				<ItemButtonsStyled>
+					<ItemFormButtonStyled
+						size="25%"
+						background="var(--background-light-gray)"
+						text="var(--accent-red)"
+						type="reset"
+						value="Clear"
+					/>
+					<ItemFormButtonStyled
+						size="70%"
+						background="var(--background-light-gray)"
+						text="var(--accent-aqua)"
+						type="submit"
+						value="Submit"
+					/>
+				</ItemButtonsStyled>
+			</ItemFormStyled>
+		</ItemFormContainerStyled>
 	);
 };
 

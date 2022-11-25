@@ -1,14 +1,14 @@
 import React from "react";
+import request from "../request.js";
 
 const NewItem = (props) => {
 	if (props.visible) {
 		return (
 			<section>
 				<form
-					action="" /* send to endpoint to create item in db*/
-					method="post"
-					onSubmit={(event) => {
+					onSubmit={async (event) => {
 						event.preventDefault();
+						const res = await request ()
 					}}
 				>
 					<label htmlFor="itemTitle">Title:</label>

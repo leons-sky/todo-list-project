@@ -9,8 +9,8 @@
 	--background-gray: #292b2f;
 	--background-light-gray: #363a44;
 	--accent-cyan: #c7f1ef;
-	--accent-aqua: #54e1b6;
-	--accent-red: #d6335c;
+	--accent-aqua: #51d6c0;
+	--accent-red: #bb3e5d;
 	--text-strong: #dbdbe6;
 	--text-faint: #acadb6;
 }
@@ -18,14 +18,26 @@
 #root {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
+	width: 100%;
 	background-color: var(--background-black);
 	color: var(--text-strong);
 }
-
-input {
-	background: var(--background-gray);
-	color: var(--text-strong);
+form {
+	display: flex;
+	flex-direction: column;
+}
+input,
+textarea {
+	border: 1px solid black;
+	background: var(--text-faint);
+	color: var(--background-black);
+}
+label {
+	display: block;
+}
+textarea {
+	resize: vertical;
 }
 
 button {
@@ -36,4 +48,36 @@ button {
 	padding: 0.4rem;
 	padding-left: 1rem;
 	padding-right: 1rem;
+	cursor: pointer;
+}
+
+button:hover {
+	filter: brightness(130%);
+}
+
+button:active {
+	filter: brightness(70%);
+}
+
+/**** Modal *****/
+
+.fade.modal-backdrop.show {
+	background-color: var(--text-faint);
+}
+
+.modal-content {
+	background-color: var(--background-black);
+	color: var(--text-strong);
+}
+
+button.btn.btn-primary {
+	color: var(--accent-red);
+	background-color: var(--accent-aqua);
+	border: none;
+}
+
+button.btn.btn-secondary {
+	color: var(--accent-aqua);
+	background-color: var(--accent-red);
+	border: none;
 }

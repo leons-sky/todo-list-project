@@ -12,62 +12,78 @@ import { ErrorHandling, Index, Login, Root } from "./pages";
 import Lists from "./pages/Lists";
 import request from "./request";
 
-const Routes = (props) => {
-	const currentUser = useContext(UserContext);
+async function userLoader(setUser) {
+	const res = await request("/users/");
+	if (res.ok) {
+		const user = await res.json();
+		setUser(user);
+	}
+	return res.ok;
+}
 
+const PageWithUserContext = (props) => {
 	return (
-		<Route path="/" element={<Root />} errorElement={<ErrorHandling />}>
-			<Route
-				index
-				element={<Index />}
-				loader={async () => {
-					const res = await request("/users/");
-					console.log(res);
-					if (res.ok) {
-						const user = await res.json();
-						props.setCurrentUser(user);
-
-						return redirect("/lists");
-					}
-				}}
-			/>
-			<Route path="login" element={<Login />} />
-			<Route
-				path="lists"
-				element={<Lists />}
-				loader={async () => {
-					// if (!currentUser) {
-					// 	return redirect("/login");
-					// }
-
-					const res = await request("/lists");
-
-					if (res.ok) {
-						const lists = await res.json();
-						return lists;
-					}
-					return {};
-				}}
-			/>
-		</Route>
+		<UserContext.Provider value={props.value}>
+			{props.children}
+		</UserContext.Provider>
 	);
 };
 
 const App = () => {
-	const [currentUser, setCurrentUser] = useState();
+	const [user, setUser] = useState();
+
 	const router = createBrowserRouter(
 		createRoutesFromElements(
-			Routes({
-				setCurrentUser,
-			})
+			<Route
+				path="/"
+				element={
+					<PageWithUserContext value={{ user, setUser }}>
+						<Root />
+					</PageWithUserContext>
+				}
+				errorElement={<ErrorHandling />}
+			>
+				<Route
+					index
+					element={<Index />}
+					loader={async () => {
+						if (await userLoader(setUser)) {
+							return redirect("/lists");
+						}
+					}}
+				/>
+				<Route
+					path="login"
+					element={<Login />}
+					loader={async () => {
+						if (await userLoader(setUser)) {
+							return redirect("/lists");
+						}
+					}}
+				/>
+				<Route
+					path="lists"
+					element={<Lists />}
+					loader={async () => {
+						if (!user) {
+							if (!(await userLoader(setUser))) {
+								return redirect("/login");
+							}
+						}
+
+						const res = await request("/lists");
+						if (res.ok) {
+							const lists = await res.json();
+							return lists;
+						}
+						return {};
+					}}
+				/>
+			</Route>
 		)
 	);
 
-	return (
-		<UserContext.Provider value={currentUser}>
-			<RouterProvider router={router} />
-		</UserContext.Provider>
-	);
+	return <RouterProvider router={router} />;
 };
 
 export default App;
