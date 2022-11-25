@@ -7,5 +7,5 @@ export default function request(path, options) {
 	options.headers = options.headers ?? {};
 	options.headers["Content-Type"] = "application/json";
 
-	return fetch("http://localhost:4650" + path, options);
+	return fetch("http://140.238.90.143:4650" + path, options);
 }
