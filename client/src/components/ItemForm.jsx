@@ -1,21 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-
-const Section = styled.section`
-	display: ${(props) => (props.show ? "unset" : "none")};
-	visibility: ${(props) => (props.show ? "visible" : "hidden")};
-`;
-
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-`;
+import { FormSectionStyled, FormStyled } from "../styles/styled-components.jsx";
 
 const ItemForm = (props) => {
 	return (
-		<Section show={props.show}>
+		<FormSectionStyled show={props.show}>
 			<h3>Create New Item</h3>
-			<Form
+			<FormStyled
 				action="" /* send to endpoint to create item in db*/
 				method="post"
 				onSubmit={(event) => {
@@ -32,8 +22,8 @@ const ItemForm = (props) => {
 				/>
 				<input type="submit" value="Submit" />
 				<input type="reset" value="Clear" />
-			</Form>
-		</Section>
+			</FormStyled>
+		</FormSectionStyled>
 	);
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ItemForm from "./ItemForm.jsx";
 import { IconContext } from "react-icons";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { ListContainerStyled, ListTitleStyled } from "../styles/styled-components.jsx";
 import styled from "styled-components";
 
 const IconContextProvider = ({ className, children }) => (
@@ -10,7 +11,7 @@ const IconContextProvider = ({ className, children }) => (
 	</IconContext.Provider>
 );
 
-const IconsStyle = styled(IconContextProvider)`
+const IconsStyled = styled(IconContextProvider)`
 	color: var(--accent-red);
 	cursor: pointer;
 
@@ -23,15 +24,13 @@ const IconsStyle = styled(IconContextProvider)`
 	}
 `;
 
-const Container = styled.article``;
-
 const ListContainer = (props) => {
 	const [showForm, setShowForm] = useState(false);
 
 	return (
-		<IconsStyle>
-			<Container>
-				<h2>{props.title}</h2>
+		<IconsStyled>
+			<ListContainerStyled>
+				<ListTitleStyled>{props.title}</ListTitleStyled>
 				<AiFillPlusCircle
 					size={40}
 					onClick={() => {
@@ -40,7 +39,7 @@ const ListContainer = (props) => {
 					}}
 				/>
 				<ItemForm show={showForm} />
-			</Container>
+			</ListContainerStyled>
 			{
 				// fetch all list items in this list container for this user from database
 				// data should appear as
@@ -55,7 +54,7 @@ const ListContainer = (props) => {
 				// )
 				// })
 			}
-		</IconsStyle>
+		</IconsStyled>
 	);
 };
 
